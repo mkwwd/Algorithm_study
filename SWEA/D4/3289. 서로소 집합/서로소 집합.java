@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Solution {
+public class Solution{
 	
 	static int parents[], N;
 
@@ -41,7 +41,9 @@ public class Solution {
 				}else {
 					int a = Integer.parseInt(st.nextToken());
 					int b = Integer.parseInt(st.nextToken());
-					if(find(a) == find(b)) {
+					find(a);
+					find(b);
+					if(parents[a] == parents[b]) {
 						sb.append("1");
 					}
 					else { 
@@ -70,5 +72,6 @@ public class Solution {
 		parents[bRoot] = aRoot;
 		return true;
 	}
-}
 
+
+}
