@@ -58,7 +58,7 @@ public class Main {
 		for(int i=0; i<route.length-1; i++) {
 			if(map[route[i]][route[i+1]] == 0) return;
 			sum += map[route[i]][route[i+1]];
-			if(sum > min) break;
+			if(sum > min) return;
 		}
 		
 		min = Math.min(min, sum);
