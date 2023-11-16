@@ -3,13 +3,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Main{
-
+public class Main {
+	
+	static int R, C, cnt, stop;
+	static int dx[] = {-1, 0, 1}, dy[] = {1, 1, 1};
 	static char map[][];
 	static boolean visited[][];
-	static int sum =0, R, C, stop = 0;
-	static int dx[] = {-1, 0, 1}, dy[] = {1, 1, 1};
-	
+
 	public static void main(String[] args) throws IOException {
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,43 +20,52 @@ public class Main{
 		
 		map = new char[R][C];
 		visited = new boolean[R][C];
-				
+		
 		for(int i=0; i<R; i++) {
-			String line = br.readLine();
+			String input = br.readLine();
 			for(int j=0; j<C; j++) {
-				map[i][j] = line.charAt(j);			
+				map[i][j] = input.charAt(j);
 			}
 		}
+		
+		cnt = 0;
 		
 		for(int i=0; i<R; i++) {
 			visited[i][0] = true;
 			stop = 0;
-			setPipe(i, 0, 1);
+			dfs(i, 0);
 		}
 		
-		System.out.println(sum);
-
+		System.out.println(cnt);
+	
 	}
 
-	private static void setPipe(int si, int sj, int cnt) {
+	
+	private static void dfs(int sx, int sy) {
 		
-		if(cnt == C) {
-			sum ++;
+		if(sy==C-1) {
+			cnt++;
 			stop = -1;
 			return;
 		}
 		
 		for(int i=0; i<3; i++) {
 			if(stop == -1) break;
-			int nextX = si + dx[i];
-			int nextY = sj + dy[i];
-			
-			if(nextX < 0 || nextX >= R || nextY >= C) continue;
-			if(map[nextX][nextY] == '.' && !visited[nextX][nextY]) {
-				visited[nextX][nextY] = true;
-				setPipe(nextX, nextY, cnt+1);
-			}
+			int nextX = sx + dx[i];
+			int nextY = sy + dy[i];
+			if(nextX<0 || nextX >= R || nextY<0 || nextY >= C) continue;
+			// 범위인데 건물이면 돌리기
+			if(map[nextX][nextY]=='x') continue;
+			// 방문체크
+			if(visited[nextX][nextY]) continue;
+			// 방문안했으면 방문하기
+			visited[nextX][nextY] = true;
+			dfs(nextX, nextY);
+
 		}
-		return;
+		
 	}
+	
+	
+
 }
