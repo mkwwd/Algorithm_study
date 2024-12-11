@@ -20,11 +20,7 @@ public class Main {
         for(int i=0; i<str.length(); i++){
             sb.append(str.charAt(i));
             if(sb.length() >= bomb.length() && str.charAt(i) == bomb.charAt(bomb.length()-1)){
-                String last = "";
-                for(int j=0; j<blen; j++){
-                    last += sb.charAt(sb.length() - blen + j);
-                }
-                if(last.equals(bomb)){
+                if(sb.substring(sb.length()-blen).equals(bomb)){
                     for(int j=0; j<blen; j++){
                         sb.deleteCharAt(sb.length()-1);
                     }
