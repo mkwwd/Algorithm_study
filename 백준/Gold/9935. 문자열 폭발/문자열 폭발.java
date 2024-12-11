@@ -19,11 +19,9 @@ public class Main {
 
         for(int i=0; i<str.length(); i++){
             sb.append(str.charAt(i));
-            if(sb.length() >= bomb.length() && str.charAt(i) == bomb.charAt(bomb.length()-1)){
+            if(sb.length() >= blen && str.charAt(i) == bomb.charAt(blen-1)){
                 if(sb.substring(sb.length()-blen).equals(bomb)){
-                    for(int j=0; j<blen; j++){
-                        sb.deleteCharAt(sb.length()-1);
-                    }
+                    sb.delete(sb.length()-blen, sb.length());
                 }
             }
         }
