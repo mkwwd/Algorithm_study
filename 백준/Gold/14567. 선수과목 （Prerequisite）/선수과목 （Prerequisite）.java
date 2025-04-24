@@ -30,22 +30,24 @@ public class Main {
         }
 
         Deque<Integer> que = new ArrayDeque<>();
+        int[] dept = new int[N+1];
 
         for(int i=1; i<N+1; i++){
             if(subject[i] == 0){
                 que.add(i);
+                dept[i] = 1;
             }
         }
 
-        Arrays.fill(subject, 1);
+
 
         while(!que.isEmpty()){
 
             int now = que.poll();
 
             for(int next : arr.get(now)){
-                if(subject[now] >= subject[next]){
-                    subject[next] = subject[now]+1;
+                if(dept[now] >= dept[next]){
+                    dept[next] = dept[now]+1;
                     que.add(next);
                 }
             }
@@ -53,7 +55,7 @@ public class Main {
         }
 
         for(int i=1; i<N+1; i++){
-            sb.append(subject[i]+ " ");
+            sb.append(dept[i] + " ");
         }
 
         System.out.println(sb);
