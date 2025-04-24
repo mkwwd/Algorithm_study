@@ -25,37 +25,21 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             int from = Integer.parseInt(st.nextToken());
             int to = Integer.parseInt(st.nextToken());
-            arr.get(from).add(to);
-            subject[to]++;
+            arr.get(to).add(from);
         }
-
-        Deque<Integer> que = new ArrayDeque<>();
-        int[] dept = new int[N+1];
 
         for(int i=1; i<N+1; i++){
-            if(subject[i] == 0){
-                que.add(i);
-                dept[i] = 1;
-            }
-        }
-
-
-
-        while(!que.isEmpty()){
-
-            int now = que.poll();
-
-            for(int next : arr.get(now)){
-                if(dept[now] >= dept[next]){
-                    dept[next] = dept[now]+1;
-                    que.add(next);
+            if(arr.get(i).isEmpty()){
+                subject[i] = 1;
+            }else{
+                int max = 0;
+                for(int next : arr.get(i)){
+                    max = Math.max(max, subject[next] + 1);
                 }
+                subject[i] = max;
             }
 
-        }
-
-        for(int i=1; i<N+1; i++){
-            sb.append(dept[i] + " ");
+            sb.append(subject[i]+" ");
         }
 
         System.out.println(sb);
