@@ -4,21 +4,21 @@ class Solution {
     public String solution(String number, int k) {
         
         Deque<Integer> que = new ArrayDeque<>();
-        int len = number.length() - k;
+        int size = k;
+        
         for(int i=0; i<number.length(); i++){
-            int num = number.charAt(i) - '0';
-            while(k > 0 && !que.isEmpty()){
-                if(que.peekLast() < num){
+            int now = number.charAt(i) - '0';
+            while(!que.isEmpty() && k > 0){
+                if(que.peekLast() < now){
                     que.pollLast();
                     k--;
-                }else break; 
+                }else break;
             }
-            que.add(num);
+            que.add(now);
         }
         
         String answer = "";
-        
-        for(int i=0; i<len; i++){
+        for(int i=0; i<number.length() - size; i++){
             answer = answer + que.poll();
         }
         
