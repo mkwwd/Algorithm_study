@@ -4,14 +4,13 @@ class Solution {
         int min = 0;
         int max = 200000000;
         
-        while(min<=max){
+        while(min <= max){
             
-            int mid = (max + min)/2;
-            
-            if(!isPossible(mid, stones, k)){
-                max = mid-1;
+            int mid = (min+max)/2;
+            if(isPossible(mid, stones, k)){
+                min = mid +1;
             }else{
-                min = mid+1;
+                max = mid -1;
             }
             
         }
@@ -20,15 +19,19 @@ class Solution {
     }
     
     public static boolean isPossible(int mid, int[] stones, int k){
+        
         int cnt = 0;
         
         for(int i=0; i<stones.length; i++){
-            if(stones[i] >= mid){
-                cnt = 0;
+            if(stones[i] - mid < 0){
+                cnt++;
             }else{
-                cnt ++;
+                cnt = 0;
             }
-            if(cnt == k) return false;
+
+            if(cnt == k){
+                return false;
+            }
         }
         
         return true;
