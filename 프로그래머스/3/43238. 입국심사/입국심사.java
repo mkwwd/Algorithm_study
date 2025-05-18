@@ -5,18 +5,19 @@ class Solution {
         
         long start = 0;
         long end = Long.MAX_VALUE / 100;
+        long answer = 0;
         
-        while(end > start){
-            long mid = (start + end)/2;
-            
+        while(end >= start){
+            long mid = (start + end) / 2;
             if(isPossible(times, mid, n)){
-                end = mid;
+                answer = mid;
+                end = mid -1;
             }else{
-                start = mid+1;
+                start = mid + 1;
             }
         }
         
-        return start;
+        return answer;
     }
     
     public boolean isPossible(int[] times, long time, int n){
