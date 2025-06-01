@@ -2,16 +2,18 @@ import java.util.*;
 
 class Solution {
     
-    static int min = Integer.MAX_VALUE;
+    static int min = 0;
     
     public int solution(String begin, String target, String[] words) {
         
         int answer = 0;
+        min = words.length;
+        
         boolean use[] = new boolean[words.length];
         
         dfs(begin, target, words, use, 0);
         
-        if(min == Integer.MAX_VALUE){
+        if(min == words.length){
             min = 0;
         } 
         
