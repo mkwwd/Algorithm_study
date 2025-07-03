@@ -3,35 +3,26 @@ import java.util.*;
 class Solution {
     public String[] solution(String[][] plans) {
         
-        PriorityQueue<int[]> work = new PriorityQueue<>(new Comparator<int[]>(){
-            @Override
-            public int compare(int[] o1, int o2[]){
-                return o1[1]-o2[1];
-            }
-        });
+        Arrays.sort(plans, (o1, o2) -> o1[1].compareTo(o2[1]));
         
         HashMap<Integer, String> subject = new HashMap<>();
         HashMap<Integer, Integer> startTime = new HashMap<>();
         HashMap<Integer, Integer> usedTime = new HashMap<>();
+        Deque<Integer> list = new ArrayDeque<>();
         
         for(int i=0; i<plans.length; i++){
+            list.add(i);
             String name = plans[i][0];
             String time[] = plans[i][1].split(":");
             int sTime = Integer.parseInt(time[0])*60 + Integer.parseInt(time[1]);
-            work.add(new int[]{i, sTime});
             subject.put(i, name);
             startTime.put(i, sTime);
             usedTime.put(i, Integer.parseInt(plans[i][2]));
         }
         
-        Deque<Integer> list = new ArrayDeque<>();
-        Deque<Integer> finish = new ArrayDeque<>();
-        Deque<int[]> stop = new ArrayDeque<>();
         
-        while(!work.isEmpty()){
-            int now[] = work.poll();
-            list.add(now[0]);
-        }
+        Deque<Integer> finish = new ArrayDeque<>();
+        Deque<int[]> stop = new ArrayDeque<>();       
         
         int index = 1;
         
