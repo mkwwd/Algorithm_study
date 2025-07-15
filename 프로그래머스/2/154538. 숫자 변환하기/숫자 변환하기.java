@@ -1,12 +1,10 @@
 import java.util.*;
 
 class Solution {
-    
-    static int answer;
-    
+     
     public int solution(int x, int y, int n) {
         
-        answer = -1;
+        int answer = -1;
         Deque<int[]> que = new ArrayDeque<>();
         que.add(new int[]{y, 0});
         
