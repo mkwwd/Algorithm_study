@@ -3,41 +3,36 @@ import java.util.*;
 class Solution {
     public int solution(String[][] book_time) {
         
-        int time[][] = new int[book_time.length][book_time[0].length];
+        Arrays.sort(book_time, new Comparator<String[]>(){
+            @Override
+            public int compare(String o1[], String o2[]){
+                if(!o1[0].equals(o2[0])){
+                    return o1[0].compareTo(o2[0]);
+                }
+                return o1[1].compareTo(o2[1]);
+            }
+        });
+        
+        PriorityQueue<Integer> room = new PriorityQueue<>();
+        int maxRoom = 0;
         
         for(int i=0; i<book_time.length; i++){
-            for(int j=0; j<book_time[0].length; j++){
-                int hour = Integer.parseInt(book_time[i][j].substring(0, 2));
-                int minute = Integer.parseInt(book_time[i][j].substring(3, 5));
-                time[i][j] = hour*60 + minute;
+            String guest[] = book_time[i];
+            String start[] = guest[0].split(":");
+            String end[] = guest[1].split(":");
+            int stTime = Integer.parseInt(start[0])*60 + Integer.parseInt(start[1]);
+            int endTime = Integer.parseInt(end[0])*60 + Integer.parseInt(end[1]);
+            if(room.isEmpty()){
+                room.add(endTime+10);
+            }else{
+                if(room.peek() <= stTime){
+                    room.poll(); 
+                }
+                room.add(endTime+10);
             }
+            maxRoom = Math.max(room.size(), maxRoom);
         }
         
-        Arrays.sort(time, new Comparator<int[]>(){
-            @Override
-            public int compare(int[] o1, int[] o2){
-                return o1[0] - o2[0];
-            }
-        });
-        
-        PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>(){
-            @Override
-            public int compare(int[] o1, int[] o2){
-                return o1[1] - o2[1];
-            }
-        });
-        
-        pq.add(new int[]{time[0][0], time[0][1]});
-        
-        for(int i=1; i<time.length; i++){
-            int now[] = pq.peek();
-            if(now[1] + 10 <= time[i][0]){
-                pq.poll();   
-            }
-            pq.add(new int[]{time[i][0], time[i][1]});
-        }
-            
-        int answer = pq.size();
-        return answer;
+        return maxRoom;
     }
 }
