@@ -14,7 +14,6 @@ class Solution {
         });
         
         PriorityQueue<Integer> room = new PriorityQueue<>();
-        int maxRoom = 0;
         
         for(int i=0; i<book_time.length; i++){
             String guest[] = book_time[i];
@@ -30,9 +29,8 @@ class Solution {
                 }
                 room.add(endTime+10);
             }
-            maxRoom = Math.max(room.size(), maxRoom);
         }
         
-        return maxRoom;
+        return room.size();
     }
 }
