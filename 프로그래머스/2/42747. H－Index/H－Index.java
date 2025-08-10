@@ -2,23 +2,22 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] citations) {
-        
+       
         Arrays.sort(citations);
-        int arr[] = new int[citations.length];
         
-        for(int i=0; i<citations.length; i++){
-            arr[i] = citations[citations.length-i-1];
-        }
+        int max = citations[citations.length-1];
+        int cnt = 0;
         
-        int answer = 0;
-        
-        for(int i=0; i<citations.length; i++){
-            if(arr[i] <= i) {
-                answer = i;
-                return answer;
+        for(int i=citations.length-1; ;){
+            if(cnt >= max) break;
+            if(i >=0 && max <= citations[i]){
+                cnt++;
+                i--;
+                continue;
             }
+            max--;
         }
         
-        return citations.length;
+        return max;
     }
 }
