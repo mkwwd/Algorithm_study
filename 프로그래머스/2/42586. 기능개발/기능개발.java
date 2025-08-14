@@ -3,45 +3,36 @@ import java.util.*;
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
         
-        Deque<int[]> que = new ArrayDeque<>();
-        Deque<Integer> end = new ArrayDeque<>();
+        ArrayDeque<int[]> work = new ArrayDeque<>();
+        ArrayDeque<Integer> finish = new ArrayDeque<>();
         
         for(int i=0; i<progresses.length; i++){
-            que.add(new int[] {progresses[i], speeds[i]});
+            work.add(new int[] {progresses[i], speeds[i]});
         }
         
-        while(!que.isEmpty()){
-            
-            int size = que.size();
-            int finish = 0;
+        int index = 1;
+        
+        while(!work.isEmpty()){
+            int cnt = 0;
+            int size = work.size();
             for(int i=0; i<size; i++){
-                int now[] = que.poll();
-                int sum = now[0] + now[1];
-                que.add(new int[] {sum, now[1]});
+                int now[] = work.peek();
+                if(now[0]+now[1]*index >= 100){
+                    cnt++;
+                    work.poll();
+                }else break;
             }
-            
-            for(int i=0; i<size; i++){
-                int now[] = que.peek();
-                if(now[0] >= 100){
-                    que.poll();
-                    finish++;
-                }else{
-                    break;
-                }
+            if(cnt > 0){
+                finish.add(cnt);
             }
-            
-            
-            if(finish != 0){
-                end.add(finish);
-            }
-            
+            index++;
         }
         
-        int size = end.size();
-        int[] answer = new int[size];
+        int len = finish.size();
+        int answer[] = new int[len];
         
-        for(int i=0; i<size; i++){
-            answer[i] = end.poll();
+        for(int i=0; i<len; i++){
+            answer[i] = finish.poll();
         }
         
         return answer;
