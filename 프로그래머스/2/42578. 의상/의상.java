@@ -6,16 +6,14 @@ class Solution {
         HashMap<String, Integer> type = new HashMap<>();
         
         for(int i=0; i<clothes.length; i++){
-            String tp = clothes[i][1];
-            type.put(tp, type.getOrDefault(tp, 0) + 1);
+            type.put(clothes[i][1], type.getOrDefault(clothes[i][1], 0) + 1);
         }
         
         int answer = 1;
         
-        for(Map.Entry<String, Integer> entry: type.entrySet()){
-            answer *= (entry.getValue() + 1);
+        for(int value : type.values()){
+            answer *= (value+1);
         }
-        
    
         return answer-1;
     }
