@@ -3,41 +3,45 @@ import java.util.*;
 class Solution {
     
     static boolean visited[];
-    static ArrayList<Integer> save = new ArrayList<>();    
-    static int answer = 0;
+    static int N, answer;
+    static ArrayList<Integer> list;
     
     public int solution(int k, int[][] dungeons) {
         
         visited = new boolean[dungeons.length];
-        permutation(dungeons, k);
+        N = dungeons.length;
+        list = new ArrayList<>();
+        answer = 0;
+        permutation(dungeons, 0, k);
         
         return answer;
     }
     
-    public static void permutation(int[][] dungeons, int k){
+    public void permutation(int[][] dungeons, int cnt, int K){
         
-        if(save.size() == dungeons.length){
-            int stress = k;
-            int cnt = 0;
-            for(int i=0; i<dungeons.length; i++){
-                int now = save.get(i);
+        if(cnt == N){
+            int stress = K;
+            int go = 0;
+            for(int i=0; i<list.size(); i++){
+                int now = list.get(i);
                 if(dungeons[now][0] <= stress){
-                    cnt ++;
                     stress -= dungeons[now][1];
-                }
+                    go++;
+                }else break;
             }
-            answer = Math.max(answer, cnt);
+            answer = Math.max(answer, go);
             return;
         }
         
-        for(int i=0; i<dungeons.length; i++){
+        for(int i=0; i<N; i++){
             if(visited[i]) continue;
             visited[i] = true;
-            save.add(i);
-            permutation(dungeons, k);
+            list.add(i);
+            permutation(dungeons, cnt+1, K);
             visited[i] = false;
-            save.remove(save.size() -1);
+            list.remove(list.size()-1);
         }
         
-    } 
+    }
+
 }
