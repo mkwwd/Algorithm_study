@@ -2,30 +2,30 @@ import java.util.*;
 
 class Solution {
     
-    static TreeSet<String> words = new TreeSet<>();
-    static boolean[] use = new boolean[5];
-    static String vowel = "AEIOU";
+    static TreeSet<String> make = new TreeSet<>();
+    static String vowel[] = {"A", "E", "I", "O", "U"};
+    static boolean visited[] = new boolean[5];
     
     public int solution(String word) {
         
         for(int i=1; i<=5; i++){
-            permutation("", 0, i);
+            permutation("", i);
         }
         
-        return words.headSet(word).size() + 1;
+        return make.headSet(word).size() +1;
     }
     
-    public void permutation(String sum, int cnt, int len){
+    public void permutation(String word, int len){
         
-        if(sum.length() == len){
-            words.add(sum);
+        if(word.length() == len){
+            make.add(word);
             return;
         }
         
-        for(int i=0; i<5; i++){
-            sum  = sum + vowel.charAt(i);
-            permutation(sum, cnt+1, len);
-            sum = sum.substring(0, sum.length()-1);
+        for(int i=0; i<vowel.length; i++){
+            word = word + vowel[i];
+            permutation(word, len);
+            word = word.substring(0, word.length()-1);
         }
         
     }
