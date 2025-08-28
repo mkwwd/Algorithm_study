@@ -2,57 +2,47 @@ import java.util.*;
 
 class Solution {
     
-    static HashMap<String, ArrayList<String>> way = new HashMap<>();
-    static int len;
-    static ArrayList<String> answer = new ArrayList<>();
+    static boolean visited[];
     static boolean find = false;
-    
+    static ArrayList<String> answer = new ArrayList<>();
+
     public String[] solution(String[][] tickets) {
         
-        len = tickets.length;
-        
-        for(int i=0; i<tickets.length; i++){
-            String from = tickets[i][0];
-            String to = tickets[i][1];
-            way.putIfAbsent(from, new ArrayList<>());
-            way.get(from).add(to);
-        }
-        
-        for(String key : way.keySet()){
-            Collections.sort(way.get(key));
-        }
-        
+        visited = new boolean[tickets.length];
         ArrayList<String> list = new ArrayList<>();
+        Arrays.sort(tickets, new Comparator<String[]>(){
+            @Override
+            public int compare(String o1[], String o2[]){
+                return o1[1].compareTo(o2[1]);
+            }
+        });
+            
         list.add("ICN");
-        dfs("ICN", list);
+        
+        dfs("ICN", list, tickets);
 
         return answer.toArray(new String[answer.size()]);
     }
     
-    public void dfs(String now, ArrayList<String> list){
+    public void dfs(String now, ArrayList<String> list, String[][] tickets){
         
-        if(list.size() == len+1){
+        if(tickets.length+1 == list.size()){
             answer = new ArrayList<>(list);
             find = true;
             return;
         }
         
-        if (!way.containsKey(now)) return;
-
-        for(int i=0; i<way.get(now).size(); i++){
-            String next = way.get(now).get(i);
-            if(next == null) continue;
-            
-            way.get(now).set(i, null);
-            list.add(next);
-            
-            dfs(next, list);
+        for(int i=0; i<tickets.length; i++){
+            if(!tickets[i][0].equals(now)) continue;
+            if(visited[i]) continue;
+            visited[i] = true;
+            list.add(tickets[i][1]);
+            dfs(tickets[i][1], list, tickets);
             if(find) return;
-            
-            way.get(now).set(i, next);
+            visited[i] = false;
             list.remove(list.size()-1);
-        }       
-        
+        }
         
     }
+    
 }
