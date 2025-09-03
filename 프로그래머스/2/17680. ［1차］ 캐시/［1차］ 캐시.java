@@ -3,27 +3,24 @@ import java.util.*;
 class Solution {
     public int solution(int cacheSize, String[] cities) {
         
-        if(cacheSize == 0) return 5 * cities.length;
+        if(cacheSize == 0) return cities.length *5;
         
-        Deque<String> que = new ArrayDeque<>();
-        
+        Deque<String> cache = new ArrayDeque<>();
         int answer = 0;
         
         for(int i=0; i<cities.length; i++){
-            String str = cities[i].toLowerCase();
-            if(que.contains(str)){
-                answer +=1;
-                que.remove(str);
-                que.add(str);
+            String now = cities[i].toLowerCase();
+            if(cache.contains(now)){
+                answer += 1;
+                cache.remove(now);
             }else{
-                answer += 5;
-                if(que.size() >= cacheSize){
-                    que.removeFirst();
+                if(cache.size() >= cacheSize){
+                    cache.pollFirst();
                 }
-                que.add(str);
+                answer += 5;
             }
+            cache.add(now);
         }
-        
 
         return answer;
     }
