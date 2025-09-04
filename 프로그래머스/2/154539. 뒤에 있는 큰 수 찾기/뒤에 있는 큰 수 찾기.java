@@ -3,26 +3,20 @@ import java.util.*;
 class Solution {
     public int[] solution(int[] numbers) {
         
-        int N = numbers.length;
-        int answer[] = new int[N];
-        Arrays.fill(answer, -1);
+        Deque<Integer> que = new ArrayDeque<>();
+        int answer[] = new int[numbers.length];
         
-        Stack<Integer> stack = new Stack<Integer>();
-        
-        for(int i=N-1; i>=0; i--){
-            
-            while(!stack.isEmpty() && numbers[i] >= stack.peek()){
-                stack.pop();
+        for(int i=numbers.length-1; i>=0; i--){
+            while(!que.isEmpty()){
+                if(que.peekLast() <= numbers[i]) que.pollLast();
+                else break;
             }
-            
-            if(!stack.isEmpty()){
-                answer[i] = stack.peek();
-            }
-            
-            stack.push(numbers[i]);
+            if(que.isEmpty()){
+                answer[i] = -1;
+            }else answer[i] = que.peekLast();
+            que.add(numbers[i]);
         }
-        
-        
+
         return answer;
     }
 }
