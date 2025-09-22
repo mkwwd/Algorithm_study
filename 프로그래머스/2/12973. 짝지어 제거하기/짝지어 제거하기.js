@@ -8,8 +8,6 @@ function solution(s)
         }else que.push(s.charAt(i));
     }
     
-    console.log(que.lengh)
-    
     if(que.length){
         return 0;
     }else return 1;
