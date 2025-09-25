@@ -3,32 +3,29 @@ import java.util.*;
 class Solution {
     public int[] solution(int n, String[] words) {
        
-        String now = words[0];
-        int cnt = 1;
-        HashSet<String> said = new HashSet<>();
-        said.add(now);
+        int cnt = 0;
+        String before = "";
         
-        for(int i=1; i<words.length; i++){
-            if(now.charAt(now.length() -1) != words[i].charAt(0)) break;
-            if(said.contains(words[i])) break;
-            cnt ++;
-            said.add(words[i]);
-            now = words[i];
+        HashSet<String> used = new HashSet<>();
+        
+        for(int i=0; i<words.length; i++){
+            if(used.contains(words[i])) break;
+            if(before.length() == 0 || before.charAt(before.length()-1) == words[i].charAt(0)){
+                before = words[i];
+                used.add(words[i]);
+                cnt++;
+            }else break;
         }
         
-        int[] answer;
+        if(cnt == words.length) return new int[] {0,0};
         
-        if(cnt == words.length){
-            answer = new int[] {0, 0};
-        }else{
-            cnt++;
-            if(cnt%n == 0){
-                answer = new int[] {n, cnt/n};
-            }else{
-                answer = new int[] {cnt%n, (int)Math.ceil((double)cnt/n)};
-            }
-        }
-
-        return answer;
+        cnt++;
+        
+        int num = cnt%n;
+        if(num == 0) num = n;
+        
+        int turn = (int)Math.ceil((double)cnt/n);
+       
+        return new int[] {num, turn};
     }
 }
