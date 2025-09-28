@@ -4,26 +4,20 @@ class Solution
 {
     public int solution(int n, int a, int b)
     {
+        int answer = 0;
         
-        int answer = 1;
-        
-        while(n > 1){
+        while(n > 0){
             
-            int aZone = (int)Math.ceil((double)a/2);
-            int bZone = (int)Math.ceil((double)b/2);
+            a = (int)Math.ceil((double)a/2);
+            b = (int)Math.ceil((double)b/2);
             
-            if(aZone == bZone){
-                break;
-            }else{
-                a = aZone;
-                b = bZone;
-                answer ++;
-            }
-        
+            if(a == b) break;
             
+            n /= 2;
+            answer++;
+                
         }
-        
 
-        return answer;
+        return answer+1;
     }
 }
