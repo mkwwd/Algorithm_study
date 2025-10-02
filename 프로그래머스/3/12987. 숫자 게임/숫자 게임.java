@@ -6,16 +6,16 @@ class Solution {
         Arrays.sort(A);
         Arrays.sort(B);
         
-        int nowA = 0;
+        int aIndex = 0;
         int answer = 0;
         
         for(int i=0; i<B.length; i++){
-            if(B[i] > A[nowA]){
+            if(A[aIndex] < B[i]){
                 answer++;
-                nowA++;
+                aIndex++;
             }
         }
-            
+      
         
         return answer;
     }
