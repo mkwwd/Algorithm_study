@@ -18,12 +18,7 @@ function solution(n, works) {
         
     }
     
-    var answer = 0;
-    
-    while(works.length){
-        var now = works.pop();
-        answer += now*now;
-    }
+    var answer = works.reduce((a,b) => a + b*b, 0);
     
     return answer;
 }
