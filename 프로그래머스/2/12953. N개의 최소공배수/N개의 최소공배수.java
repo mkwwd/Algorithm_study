@@ -3,34 +3,22 @@ import java.util.*;
 class Solution {
     public int solution(int[] arr) {
         
-        Deque<Integer> que = new ArrayDeque<>();
+        int answer = arr[0];
         
-        for(int i=0; i<arr.length; i++){
-            que.add(arr[i]);
-        }
-        
-        Arrays.sort(arr);
-        
-        int i=2;
-        int max = arr[arr.length-1];
-        int answer = 1;
-        
-        while(i<=max){
-            int cnt = 0;
-            int len = que.size();
-            for(int j=0; j<len; j++){
-                int now = que.poll();
-                if(now%i == 0){
-                    cnt++;
-                    now /= i;
-                }
-                if(now != 1) que.add(now);
-            }
-            
-            if(cnt == 0) i++;
-            else answer *= i;
+        for(int i=1; i<arr.length; i++){
+            answer = lcm(answer, arr[i]);
         }
         
         return answer;
     }
+    
+    public int lcm(int a, int b){
+        return a * b / gcd(a, b);
+    }
+    
+    public int gcd(int a, int b){
+        if(b == 0) return a; 
+        return gcd(b, a%b);
+    }
+    
 }
