@@ -1,26 +1,19 @@
 function solution(arr) {
     
-    var i = 2;
-    arr.sort((a, b) => a - b);
-    var max = arr[arr.length-1];
-    var answer = 1;
+    var answer = arr[0];
     
-    while(i <= max){
-        
-        var cnt = 0;
-        var len = arr.length;
-        
-        for(let j=0; j<len; j++){
-            if(arr[j] == 1) continue;
-            if(arr[j]%i == 0){
-                cnt++;
-                arr[j] /= i; 
-            }
-        }
-        
-        if(cnt == 0) i++
-        else answer *= i
+    for(let i=1; i<arr.length; i++){
+        answer = lcm(answer, arr[i]);
     }
 
     return answer;
+}
+
+function lcm(a, b){
+    return a * b / gcd(a, b);
+}
+
+function gcd(a, b){
+    if(b == 0) return a;
+    return gcd(b, a%b);
 }
