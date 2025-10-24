@@ -3,32 +3,31 @@ import java.util.*;
 class Solution {
     public int solution(int[] priorities, int location) {
         
-        Deque<int[]> process= new ArrayDeque<>();
+        Deque<int[]> que = new ArrayDeque<>();
         PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
         
         for(int i=0; i<priorities.length; i++){
-            process.add(new int[] {priorities[i], i});
-            pq.add(priorities[i]);
+            int num = priorities[i];
+            que.add(new int[]{num, i});
+            pq.add(num);
         }
         
         int answer = 0;
-        int index = -1;
+        int cnt = 0;
         
-        for(int i=0; i<priorities.length; i++){
-            int max = pq.poll();
-            while(true){
-                int now[] = process.poll();
-                if(now[0] == max){
-                    index = now[1];
-                    answer ++;
-                    break;
-                }else{
-                    process.add(new int[]{now[0], now[1]});
+        while(!que.isEmpty()){
+            int now[] = que.poll();
+            if(pq.peek() == now[0]){
+                pq.poll();
+                cnt++;
+                if(now[1] == location){
+                    answer = cnt;
                 }
+            }else{
+                que.add(now);
             }
-            if(index == location) break;
         }
-        
+       
         return answer;
     }
 }
