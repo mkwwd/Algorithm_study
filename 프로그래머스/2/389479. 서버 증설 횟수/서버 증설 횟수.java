@@ -2,20 +2,19 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] players, int m, int k) {
+        
+        Deque<Integer> server = new ArrayDeque<>();
         int answer = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
         
         for(int i=0; i<players.length; i++){
-            while(!pq.isEmpty() && pq.peek() < i){
-                pq.poll();
+            while(!server.isEmpty() && server.peek() < i){
+                server.poll();
             }
-            if(players[i] < m) continue;
             int need = players[i]/m;
-            if(pq.size() >= need) continue;
-            int add = need-pq.size();
-            int finish = i+k-1;
-            for(int j=0; j<add; j++){
-                pq.add(finish);
+            if(server.size() >= need) continue;
+            int plus = need - server.size();
+            for(int j=0; j<plus; j++){
+                server.add(i+k-1);
                 answer++;
             }
         }
