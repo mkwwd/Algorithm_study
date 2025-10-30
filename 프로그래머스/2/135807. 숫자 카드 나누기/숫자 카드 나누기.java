@@ -16,7 +16,7 @@ class Solution {
         }
         
         findDiv(num);
-        findMax(arrayA, arrayB);
+        findMax(arrayB);
         set.clear();
         
         num = arrayB[0];
@@ -26,7 +26,7 @@ class Solution {
         }
         
         findDiv(num);
-        findMax(arrayB, arrayA);
+        findMax(arrayA);
             
         return answer;
     }
@@ -45,12 +45,12 @@ class Solution {
         }
     }
     
-    public void findMax(int arr1[], int arr2[]){
+    public void findMax(int arr1[]){
         for(int div : set){
             int cnt = 0;
             int len = arr1.length;
             for(int i=0; i<len; i++){
-                if(arr1[i]%div == 0 && arr2[i]%div != 0) cnt++;
+                if(arr1[i]%div != 0) cnt++;
             }
             if(cnt == len) {
                 answer = Math.max(answer, div);
