@@ -29,6 +29,7 @@ function gcd(a, b){
 function findMax(num, array){
     for(let i=1; i<=Math.sqrt(num); i++){
         if(num % i == 0){
+            if(answer > i && answer > Math.floor(num/i)) break;
             checkPos(Math.floor(num/i), array);
             checkPos(i, array);
         }
