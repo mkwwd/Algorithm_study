@@ -6,11 +6,12 @@ class Solution {
         
         while(min <= max){
             
-            int mid = (min+max)/2;
-            if(isPossible(mid, stones, k)){
-                min = mid +1;
+            int mid = (min + max)/2;
+            
+            if(checkStone(mid, k, stones)){
+                min = mid + 1;
             }else{
-                max = mid -1;
+                max = mid - 1;
             }
             
         }
@@ -18,20 +19,16 @@ class Solution {
         return max;
     }
     
-    public static boolean isPossible(int mid, int[] stones, int k){
+    public static boolean checkStone(int mid, int k, int[] stones){
         
         int cnt = 0;
         
         for(int i=0; i<stones.length; i++){
             if(stones[i] - mid < 0){
                 cnt++;
-            }else{
-                cnt = 0;
-            }
-
-            if(cnt == k){
-                return false;
-            }
+            }else cnt = 0;
+            
+            if(cnt >= k) return false;
         }
         
         return true;
