@@ -6,61 +6,57 @@ class Solution {
     
     public int[] solution(String[][] places) {
         
-        int[] answer = new int[places.length];
+        int N = places.length;
+        int answer[] = new int[N];
         
-        for(int i=0; i<places.length; i++){
-            String[][] room = new String[5][5];
+        for(int i=0; i<N; i++){
+            String[][] wRoom = new String[5][5];
             for(int j=0; j<5; j++){
-                room[j] = places[i][j].split("");
+                wRoom[j] = places[i][j].split("");
             }
             
-            int result = 1;
+            boolean isPoss = checkDis(wRoom);
             
-            for(int j=0; j<5; j++){
-                boolean isposs = true;
-                for(int k=0; k<5; k++){
-                    if(room[j][k].equals("P")){
-                        isposs = checkDis(room, j, k);
-                    }
-                    
-                    if(!isposs) break;
-                }
-                
-                if(!isposs) {
-                    result = 0;
-                    break;
-                }
-            }
+            if(isPoss) answer[i] = 1;
             
-            answer[i] = result;
         }
       
         return answer;
     }
     
-    public boolean checkDis(String[][] room, int x, int y){
+    public boolean checkDis(String[][] wRoom){
         
-        Deque<int[]> que = new ArrayDeque<>();
-        que.add(new int[] {x, y, 0});
-        boolean visited[][] = new boolean[5][5];
-        visited[x][y] = true;
-        
-        while(!que.isEmpty()){
-            int now[] = que.poll();
-            for(int i=0; i<4; i++){
-                if(now[2] >= 2) continue;
-                int nextX = now[0] + dx[i];
-                int nextY = now[1] + dy[i];
-                if(nextX < 0 || nextX >= 5 || nextY < 0 || nextY >= 5) continue;
-                if(visited[nextX][nextY]) continue;
-                if(room[nextX][nextY].equals("P")) return false;
-                visited[nextX][nextY] = true;
-                if(room[nextX][nextY].equals("O")){
-                    que.add(new int[]{nextX, nextY, now[2]+1});
+        for(int i=0; i<5; i++){
+            for(int j=0; j<5; j++){
+                if(wRoom[i][j].equals("P")){
+                    
+                    Deque<int[]> que = new ArrayDeque<>();
+                    que.add(new int[]{i, j, 0});
+                    boolean visited[][] = new boolean[5][5];
+                    visited[i][j] = true;
+                    
+                    while(!que.isEmpty()){
+                        int[] now = que.poll();
+                        if(now[2] >= 2) continue;
+                        for(int k=0; k<4; k++){
+                            int nextX = now[0] + dx[k];
+                            int nextY = now[1] + dy[k];
+                            if(nextX < 0 || nextX >= 5 || nextY < 0 || nextY >= 5) continue;
+                            if(wRoom[nextX][nextY].equals("X")) continue;
+                            if(visited[nextX][nextY]) continue;
+                            visited[nextX][nextY] = true;
+                            if(wRoom[nextX][nextY].equals("P") && now[2] + 1 <= 2) {
+                                return false;
+                            }
+                            que.add(new int[]{nextX, nextY, now[2]+1});
+                        }
+                    }
                 }
             }
         }
         
         return true;
+        
     }
+    
 }
