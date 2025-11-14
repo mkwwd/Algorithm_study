@@ -1,16 +1,17 @@
 class Solution {
     public long solution(int w, int h) {
         
-        long total = (long)w*(long)h;
-        long cut = w+h;
-        long dupl = gcp(w, h);
+        long size = (long)w*(long)h;
+        long sum = w + h;
+        long gcd = gcd(w, h);
             
-        long answer = total-(cut-dupl);
+        long answer = size-(sum-gcd);
         return answer;
     }
     
-    public long gcp(int w, int h){
-        if(h==0) return w;
-        return gcp(h, w%h);
+    public long gcd(int w, int h){
+        if(w%h == 0) return h;
+        else return gcd(h, w%h);
     }
+    
 }
