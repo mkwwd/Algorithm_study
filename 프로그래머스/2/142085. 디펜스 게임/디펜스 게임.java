@@ -12,23 +12,18 @@ class Solution {
                 answer++;
                 continue;
             }
-            // 비교해서 집어넣기
-            // 더 작고 막을 수 있으면 막기
-            if(pq.peek() < enemy[i] && pq.peek() <= n){
-                pq.add(enemy[i]);
-                n -= pq.poll();
-                answer++;
-                continue;
+            if(pq.size() == k){
+                if(pq.peek() < enemy[i] && n - pq.peek() >= 0){
+                    n -= pq.peek();
+                    pq.poll();
+                    pq.add(enemy[i]);
+                    answer++;
+                }else if(pq.peek() >= enemy[i] && n - enemy[i] >= 0){
+                    n -= enemy[i];
+                    answer++;
+                }else break;
             }
-            // 더 작지 않으면 막을 수 있는지 확인
-            if(enemy[i] <= n){
-                n -= enemy[i];
-                answer++;
-            }else break;
-  
         }
-        
-        
         
         return answer;
     }
