@@ -2,79 +2,78 @@ import java.util.*;
 
 class Solution {
     
-    static int n,m;
-    static int info[][];
-    static int dx[] = {0, 1, 0, -1}, dy[] = {1, 0, -1, 0};
-    static boolean visited[][];
+    static int N, M;
+    static int dx[] = {0, -1, 0, 1}, dy[] = {1, 0, -1, 0};
+    static boolean[][] visited;
+    static int[][] mapInfo;
     
     public int[] solution(String[] maps) {
         
-        n = maps.length;
-        m = maps[0].length();
+        N = maps.length;
+        M = maps[0].length();
+
+        mapInfo = new int[N][M];
+        visited = new boolean[N][M];
         
-        info = new int[n][m];
-        visited = new boolean[n][m];
-        
-        for(int i=0; i<n; i++){
-            for(int j=0; j<m; j++){
+        for(int i=0; i<N; i++){
+            for(int j=0; j<M; j++){
                 char input = maps[i].charAt(j);
                 if(input == 'X'){
-                    info[i][j] = 0;
+                    mapInfo[i][j] = 0;
                 }else{
-                    info[i][j] = input - '0';
+                    mapInfo[i][j] = input - '0';
                 }
             }
         }
         
         PriorityQueue<Integer> pq = new PriorityQueue<>();
         
-        for(int i=0; i<n; i++){
-            for(int j=0; j<m; j++){
-                if(info[i][j] == 0) continue;
-                if(visited[i][j]) continue;
-                visited[i][j] = true;
-                int num = bfs(i, j);
-                pq.add(num);
+        for(int i=0; i<N; i++){
+            for(int j=0; j<M; j++){
+                if(mapInfo[i][j] > 0 && !visited[i][j]){
+                    System.out.println(i+ " " + j);
+                    int sum = findIsland(i,j);
+                    pq.add(sum);
+                }
             }
         }
-            
-        int size = pq.size();
         
-        if(size == 0) return new int[]{-1};
+        if(pq.size() == 0) {
+            return new int[]{-1};
+        }
         
-        int answer[] = new int[size];
+        int[] answer = new int[pq.size()];
         
-        for(int i=0; i<size; i++){
+        for(int i=0; i<answer.length; i++){
             answer[i] = pq.poll();
         }
         
         return answer;
     }
     
-    public int bfs(int x, int y){
+    public int findIsland(int x, int y){
         
         Deque<int[]> que = new ArrayDeque<>();
         que.add(new int[] {x, y});
-        int sum = info[x][y];
+        visited[x][y] = true;
+        int sum = mapInfo[x][y];
         
         while(!que.isEmpty()){
-            int[] now = que.poll();
+            int now[] = que.poll();
             for(int i=0; i<4; i++){
-                int nextX = now[0] + dx[i];
-                int nextY = now[1] + dy[i];
-                if(nextX < 0 || nextX >= n || nextY < 0 || nextY >= m) continue;
-                if(info[nextX][nextY] == 0) continue;
+                int nextX = now[0]+dx[i];
+                int nextY = now[1]+dy[i];
+                if(nextX < 0 || nextX >= N || nextY < 0 || nextY >= M) continue;
                 if(visited[nextX][nextY]) continue;
+                if(mapInfo[nextX][nextY] == 0) continue;
+                sum += mapInfo[nextX][nextY];
                 visited[nextX][nextY] = true;
-                sum += info[nextX][nextY];
-                que.add(new int[] {nextX, nextY});
+                que.add(new int[]{nextX, nextY});
             }
-            
-        }   
+        }
         
         return sum;
         
     }
-    
 
 }
