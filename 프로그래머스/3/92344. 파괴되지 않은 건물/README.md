@@ -1,10 +1,10 @@
 # [level 3] 파괴되지 않은 건물 - 92344 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/92344) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/92344?language=javascript) 
 
 ### 성능 요약
 
-메모리: 211 MB, 시간: 55.26 ms
+메모리: 182 MB, 시간: 93.85 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 11월 24일 14:30:18
+2025년 11월 24일 14:45:56
 
 ### 문제 설명
 
