@@ -1,42 +1,45 @@
 class Solution {
     public int solution(int[][] board, int[][] skill) {
         
-        int n = board.length;
-        int m = board[0].length;
-        int[][] prefix = new int[n+1][m+1];
-
-        for(int[] s : skill){
-            int degree = s[0] == 1 ? -s[5] : s[5];
-            int st1 = s[1], ed1 = s[2], st2 = s[3], ed2 = s[4];
-            
-            prefix[st1][ed1] += degree;
-            prefix[st1][ed2+1] -= degree;
-            prefix[st2+1][ed1] -= degree;
-            prefix[st2+1][ed2+1] += degree;
+        int type[] = {0, -1, 1};
+        int N = board.length;
+        int M = board[0].length;
+        int copy[][] = new int[N+1][M+1];
+        
+        for(int i=0; i<skill.length; i++){
+            int tp = type[skill[i][0]];
+            int st1 = skill[i][1];
+            int ed1 = skill[i][2];
+            int st2 = skill[i][3];
+            int ed2 = skill[i][4];
+            copy[st1][ed1] += tp * skill[i][5];
+            copy[st1][ed2+1] -= tp * skill[i][5];
+            copy[st2+1][ed1] -= tp * skill[i][5];
+            copy[st2+1][ed2+1] += tp * skill[i][5];
         }
         
-        for(int i=0; i<n+1; i++){
-            for(int j=1; j<m+1; j++){
-                prefix[i][j] += prefix[i][j-1];
+        for(int i=0; i<N+1; i++){
+            for(int j=1; j<M+1; j++){
+                copy[i][j] += copy[i][j-1];
             }
         }
         
-        for(int j=0; j<m+1; j++){
-            for(int i=1; i<n+1; i++){
-                prefix[i][j] += prefix[i-1][j];
+        for(int j=0; j<M+1; j++){
+            for(int i=1; i<N+1; i++){
+                copy[i][j] += copy[i-1][j]; 
             }
         }
         
-        int cnt = 0;
+        int answer = 0;
         
-        for(int i=0; i<n; i++){
-            for(int j=0; j<m; j++){
-                board[i][j] += prefix[i][j];
-                if(board[i][j] > 0) cnt++;
+        for(int i=0; i<N; i++){
+            for(int j=0; j<M; j++){
+                board[i][j] += copy[i][j];
+                if(board[i][j] > 0) answer ++;
             }
         }
         
-        return cnt;
+        return answer;
     }
     
 }
