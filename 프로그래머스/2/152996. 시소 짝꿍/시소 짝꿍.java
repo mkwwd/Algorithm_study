@@ -5,21 +5,23 @@ class Solution {
         long answer = 0;
         
         Arrays.sort(weights);
+        
         HashMap<Double, Integer> map = new HashMap<>();
         
-        for(int i=0; i<weights.length; i++){
-            double arr[] = {weights[i]*1.0, weights[i]*0.5, (weights[i]*2.0)/3.0, weights[i]*0.75};
+        for(int w : weights){
+            double a = w*1.0;
+            double b = (w*2.0)/3.0;
+            double c = (w*1.0)/2.0;
+            double d = (w*3.0)/4.0;
             
-            for(double num : arr){
-               if(map.containsKey(num)) answer += map.get(num);
-            }
+            if(map.containsKey(a)) answer += map.get(a);
+            if(map.containsKey(b)) answer += map.get(b);
+            if(map.containsKey(c)) answer += map.get(c);
+            if(map.containsKey(d)) answer += map.get(d);
             
-            if(map.containsKey(weights[i]*1.0)){
-                map.put(weights[i]*1.0, map.get(weights[i]*1.0) + 1);
-            }else{
-                map.put(weights[i]*1.0, 1);
-            }
+            map.put((w*1.0), map.getOrDefault((w*1.0),0)+1);
         }
+        
         
         return answer;
     }
