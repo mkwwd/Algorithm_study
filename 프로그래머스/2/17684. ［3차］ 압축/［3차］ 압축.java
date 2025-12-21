@@ -4,40 +4,40 @@ class Solution {
     public int[] solution(String msg) {
         
         HashMap<String, Integer> dic = new HashMap<>();
-
+        
         for(int i=0; i<26; i++){
-            dic.put(String.valueOf((char)('A'+i)),i+1);
+            dic.put(String.valueOf((char)('A'+i)), i+1);
         }
         
+        int len = msg.length();
         int index = 27;
-        Deque<Integer> press = new ArrayDeque<>();
         
-        for(int i=0; i<msg.length(); ){
-            int len = 1;
+        Deque<Integer> compress = new ArrayDeque<>();
+        
+        for(int i=0; i<len;){
+            int plus = 1;
             
-            while(i+len <= msg.length() && dic.containsKey(msg.substring(i, i+len))){
-                len++;
+            while(i+plus <= len && dic.containsKey(msg.substring(i, i+plus))){
+                plus++;
             }
             
-            // 일치하는 부분을 찾았으면 que에 넣기
-            String find = msg.substring(i, i+len-1);
-            press.add(dic.get(find));
+            String find = msg.substring(i, i+plus-1);
+            compress.add(dic.get(find));
             
-            // 새로운 단어 업데이트
-            if(i+len-1 < msg.length()){
-                dic.put(find+msg.charAt(i+len-1), index);
+            if(i+plus-1 < len){
+                dic.put(find + msg.charAt(i+plus-1), index);
                 index++;
             }
             
-            i += len-1;           
+            i += plus-1;
         }
         
-        int size = press.size();
-        int[] answer = new int[size];
+        int[] answer = new int[compress.size()];
         
-        for(int i=0; i<size; i++){
-            answer[i] = press.poll();
+        for(int i=0; i<answer.length; i++){
+            answer[i] = compress.poll();
         }
+        
         
         return answer;
     }
