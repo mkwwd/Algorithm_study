@@ -2,32 +2,33 @@ import java.util.*;
 
 class Solution {
     
+    static int answer = 0;
     static HashMap<String, Integer> list = new HashMap<>();
     static HashMap<String, Integer> sale = new HashMap<>();
-    static int answer = 0;
     
     public int solution(String[] want, int[] number, String[] discount) {
         
         for(int i=0; i<want.length; i++){
             list.put(want[i], number[i]);
         }
-         
+    
         for(int i=0; i<10; i++){
             sale.put(discount[i], sale.getOrDefault(discount[i], 0) + 1);
         }
         
-        checkStock(want);
-            
-        for(int i=0; i<discount.length - 10; i++){
-            sale.put(discount[i], sale.getOrDefault(discount[i], 0) -1);
-            sale.put(discount[i+10], sale.getOrDefault(discount[i+10], 0) + 1);
-            checkStock(want);
+        checkWant(want);
+        
+        for(int i=10; i<discount.length; i++){
+            sale.put(discount[i-10], sale.get(discount[i-10]) -1);
+            sale.put(discount[i], sale.getOrDefault(discount[i], 0) + 1);
+            checkWant(want);
         }
+        
         
         return answer;
     }
     
-    public void checkStock(String[] want){
+    public void checkWant(String[] want){
         
         int cnt = 0;
         
@@ -35,7 +36,8 @@ class Solution {
             if(list.get(want[i]) <= sale.getOrDefault(want[i], 0)) cnt++;
         }
         
-        if(cnt == want.length) answer++;
+        if(cnt == list.size()) answer++;
         
     }
+
 }
