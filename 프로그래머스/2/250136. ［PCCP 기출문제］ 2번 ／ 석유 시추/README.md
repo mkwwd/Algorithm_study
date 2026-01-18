@@ -1,10 +1,10 @@
 # [level 2] [PCCP 기출문제] 2번 / 석유 시추 - 250136 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/250136) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/250136?language=javascript) 
 
 ### 성능 요약
 
-메모리: 77.5 MB, 시간: 96.50 ms
+메모리: 76.4 MB, 시간: 107.25 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 01월 19일 00:25:34
+2026년 01월 19일 00:58:46
 
 ### 문제 설명
 
