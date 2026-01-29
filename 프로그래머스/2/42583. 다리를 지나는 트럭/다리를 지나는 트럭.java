@@ -11,8 +11,7 @@ class Solution {
         for(int truck : truck_weights){
             
             if(!onBridge.isEmpty() && onBridge.peek()[1] <= time){
-                total_weight -= onBridge.peek()[0];
-                onBridge.poll();
+                total_weight -= onBridge.poll()[0];
             }
             
             while(total_weight + truck > weight || onBridge.size() >= bridge_length){
