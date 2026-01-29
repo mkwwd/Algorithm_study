@@ -3,25 +3,31 @@ import java.util.*;
 class Solution {
     public int solution(int bridge_length, int weight, int[] truck_weights) {
         
-        Deque<int[]> bridge = new ArrayDeque<>();
+        Deque<int[]> onBridge = new ArrayDeque<>();
+        
+        int total_weight = 0;
         int time = 1;
-        int sum = 0;
         
         for(int truck : truck_weights){
-            while(sum + truck > weight || bridge.size() >= bridge_length){
-                int out[] = bridge.poll();
-                sum -= out[0];
+            
+            if(!onBridge.isEmpty() && onBridge.peek()[1] <= time){
+                total_weight -= onBridge.peek()[0];
+                onBridge.poll();
+            }
+            
+            while(total_weight + truck > weight || onBridge.size() >= bridge_length){
+                int out[] = onBridge.poll();
+                total_weight -= out[0];
                 time = out[1];
             }
             
-            bridge.add(new int[]{truck, time++ +bridge_length});
-            sum += truck; 
+            total_weight += truck;
             
-            if(time >= bridge.peek()[1]){
-                sum -= bridge.poll()[0];
-            }
+            onBridge.add(new int[] {truck, time + bridge_length});
+            time++;
+            
         }
         
-        return bridge.peekLast()[1];
+        return onBridge.peekLast()[1];
     }
 }
