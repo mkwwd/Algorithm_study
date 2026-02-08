@@ -1,10 +1,10 @@
 # [level 3] 최적의 행렬 곱셈 - 12942 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12942) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12942?language=javascript) 
 
 ### 성능 요약
 
-메모리: 54.4 MB, 시간: 24.49 ms
+메모리: 37.4 MB, 시간: 40.77 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 02월 08일 23:37:54
+2026년 02월 09일 01:18:35
 
 ### 문제 설명
 
