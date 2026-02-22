@@ -1,22 +1,20 @@
 function solution(prices) {
-    var stack = [];
-    var answer = [];
-
-    for(let i=0; i<prices.length; i++){
-        while(stack.length > 0){
-            if(stack[stack.length-1][0] > prices[i]){
-                const index = stack[stack.length-1][1];
-                answer[index] = i - index;
-                stack.pop();
-            }else break;
+    
+    const stack = [];
+    const answer = [];
+    const len = prices.length;
+    
+    for(let i=0; i<len; i++){
+        while(stack.length && stack[stack.length-1][0] > prices[i]){
+            var out = stack.pop();
+            answer[out[1]] = i - out[1];
         }
-        stack.push([prices[i], i])
+        stack.push([prices[i], i]);
     }
     
-    while(stack.length > 0){
-        const index = stack[stack.length-1][1];
-        answer[index] = prices.length - index -1;
-        stack.pop();
+    while(stack.length){
+        out = stack.pop();
+        answer[out[1]] = len-1-out[1];
     }
     
     return answer;
