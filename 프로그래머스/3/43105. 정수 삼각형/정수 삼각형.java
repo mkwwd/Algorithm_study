@@ -16,13 +16,7 @@ class Solution {
             }
         }
         
-        int answer = 0;
-        
-        for(int i=0; i<n; i++){
-            answer = Math.max(answer, dp[i]);
-        }
-        
-        return answer;
+        return dp[0];
             
     }
 }
