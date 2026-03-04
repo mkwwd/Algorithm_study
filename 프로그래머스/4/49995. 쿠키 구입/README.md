@@ -1,10 +1,10 @@
 # [level 4] 쿠키 구입 - 49995 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/49995) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/49995?language=javascript) 
 
 ### 성능 요약
 
-메모리: 53.7 MB, 시간: 15.37 ms
+메모리: 36 MB, 시간: 31.36 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 03월 05일 03:01:05
+2026년 03월 05일 03:11:05
 
 ### 문제 설명
 
