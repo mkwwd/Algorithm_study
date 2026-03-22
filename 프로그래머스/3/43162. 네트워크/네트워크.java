@@ -1,14 +1,15 @@
 class Solution {
     
-    static boolean visited[];
+    static boolean connected[];
     
     public int solution(int n, int[][] computers) {
         
         int answer = 0;
-        visited = new boolean[n];
+        connected = new boolean[n];
         
         for(int i=0; i<n; i++){
-            if(visited[i]) continue;
+            if(connected[i]) continue;
+            connected[i] = true;
             answer++;
             connect(i, computers);
         }
@@ -16,11 +17,11 @@ class Solution {
         return answer;
     }
     
-    public void connect(int st, int[][] computers){
+    public void connect(int now, int[][] computers){
         
         for(int i=0; i<computers.length; i++){
-            if(computers[st][i] == 1 && !visited[i]){
-                visited[i] = true;
+            if(computers[now][i] == 1 && !connected[i]){
+                connected[i] = true;
                 connect(i, computers);
             }
         }
