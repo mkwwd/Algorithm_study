@@ -1,26 +1,28 @@
-var visited = [];
+var connected = [];
 
 function solution(n, computers) {
    
     var answer = 0;
-    visited = new Array(n).fill(false)
+    connected = Array(n).fill(false);
     
-    for(let i=0; i<computers.length; i++){
-        if(visited[i]) continue
-        answer++
-        dfs(i, computers)
+    for(let i=0; i<n; i++){
+        if(connected[i]) continue;
+        connected[i] = true;
+        answer++;
+        connect(i, computers);
     }
     
     return answer;
 }
 
-function dfs(st, computers){
+function connect(now, computer){
     
-    for(let i=0; i<computers.length; i++){
-        if(computers[st][i] == 1 && !visited[i]){
-            visited[i] = true
-            dfs(i, computers)
+    for(let i=0; i<computer.length; i++){
+        if(computer[now][i] == 1 && !connected[i]){
+            connected[i] = true;
+            connect(i, computer);
         }
     }
+    
 }
     
