@@ -8,25 +8,33 @@ class Solution {
         
         Arrays.sort(costs, new Comparator<int[]>(){
             @Override
-            public int compare(int o1[], int o2[]){
-                return o1[2]-o2[2];
+            public int compare(int[] o1, int[] o2){
+                return o1[2] - o2[2];
             }
         });
         
-        parent = new int[n];
-        for(int i=0; i<parent.length; i++){
+        parent = new int[n+1];
+        
+        for(int i=1; i<n+1; i++){
             parent[i] = i;
         }
         
-        int sum = 0;
+        int answer = 0;
         
         for(int i=0; i<costs.length; i++){
-            if(find(costs[i][0]) == find(costs[i][1])) continue;
-            sum += costs[i][2];
-            union(costs[i][0], costs[i][1]);
+            int from = costs[i][0];
+            int to = costs[i][1];
+            if(find(from) == find(to)) continue;
+            answer += costs[i][2];
+            union(from, to);
         }
         
-        return sum;
+        return answer;
+    }
+    
+    public int find(int node){
+        if(parent[node] == node) return node;
+        return parent[node] = find(parent[node]);
     }
     
     public void union(int a, int b){
@@ -34,11 +42,5 @@ class Solution {
         int pb = parent[b];
         if(pa != pb) parent[pb] = pa;
     }
-    
-    public int find(int x){
-        if(parent[x] == x) return x;
-        else return parent[x] = find(parent[x]);
-    }
-    
 
 }
