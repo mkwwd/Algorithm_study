@@ -1,37 +1,40 @@
 var min = 0;
+var isUsed;
 
 function solution(begin, target, words) {
     
-    min = words.length;
-    const use = new Array(words.length).fill(false)
+    var n = words.length;
+    isUsed = Array(n).fill(false);
+    min = n;
     
-    dfs(begin, target, words, use, 0)
+    dfs(begin, target, words, 0);
     
-    if(min == words.length) min = 0
+    if(min == n) min = 0;
 
     return min;
 }
 
-function dfs(begin, target, words, use, sum){
+function dfs(begin, target, words, change){
     
-    if(sum > min) return;
+    if(change >= min) return; 
     
-    if(begin == target) {
-        min = Math.min(min, sum)
-        return
+    if(begin == target){
+        min = Math.min(min, change);
+        return;
     }
     
     for(let i=0; i<words.length; i++){
-        if(use[i]) continue;
+        var now = words[i];
+        if(isUsed[i]) continue;
         var cnt = 0;
-        for(let j=0; j<begin.length; j++){
-            if(begin.charAt(j) != words[i].charAt(j)) cnt++
+        for(let j=0; j<now.length; j++){
+            if(begin.charAt(j) != now.charAt(j)) cnt++;
         }
+        
         if(cnt == 1){
-            use[i] = true; 
-            dfs(words[i], target, words, use, sum+1);
-            use[i] = false;
+            isUsed[i] = true;
+            dfs(now, target, words, change+1);
+            isUsed[i] = false;
         }
     }
-    
 }
