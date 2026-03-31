@@ -3,49 +3,45 @@ import java.util.*;
 class Solution {
     
     static int min = 0;
+    static boolean isUsed[];
     
     public int solution(String begin, String target, String[] words) {
         
-        int answer = 0;
-        min = words.length;
+        int n = words.length;
+        min = n;
+        isUsed = new boolean[n+1];
         
-        boolean use[] = new boolean[words.length];
+        dfs(begin, target, words, 0);
         
-        dfs(begin, target, words, use, 0);
-        
-        if(min == words.length){
-            min = 0;
-        } 
+        if(min == words.length) min = 0;
         
         return min;
     }
     
-    public void dfs(String begin, String target, String[] words, boolean[] use, int sum){
+    public void dfs(String begin, String target, String[] words, int change){
         
-        System.out.println(begin + target + sum);
-        
-        if(sum > words.length || sum > min) return;
+        if(change >= min) return;
         
         if(begin.equals(target)){
-            min = Math.min(min, sum);
+            min = Math.min(change, min);
             return;
         }
         
         for(int i=0; i<words.length; i++){
-            if(use[i]) continue;
+            String now = words[i];
+            if(isUsed[i]) continue;
             int cnt = 0;
-            for(int j=0; j<begin.length(); j++){
-                if(begin.charAt(j) != words[i].charAt(j)) cnt++;
-            }
-           
-            if(cnt == 1){
-                use[i] = true;
-                dfs(words[i], target, words, use, sum+1);
-                use[i] = false;
+            for(int j=0; j<now.length(); j++){
+                if(begin.charAt(j) != now.charAt(j)) cnt++;
             }
             
+            if(cnt == 1){
+                isUsed[i] = true;
+                dfs(now, target, words, change+1);
+                isUsed[i] = false;
+            }
         }
         
     }
-    
+       
 }
