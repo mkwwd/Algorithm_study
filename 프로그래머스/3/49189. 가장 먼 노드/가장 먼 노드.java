@@ -5,7 +5,7 @@ class Solution {
         
         ArrayList<ArrayList<Integer>> node = new ArrayList<>();
         
-        for(int i=0; i<n+1; i++){
+        for(int i=0; i<=n; i++){
             node.add(new ArrayList<>());
         }
         
@@ -15,14 +15,15 @@ class Solution {
             node.get(from).add(to);
             node.get(to).add(from);
         }
-        
+
         boolean visited[] = new boolean[n+1];
-            
+        visited[1] = true;
+        
         Deque<Integer> que = new ArrayDeque<>();
         que.add(1);
-        visited[1] = true;
+        
         int size = 0;
-            
+        
         while(!que.isEmpty()){
             size = que.size();
             for(int i=0; i<size; i++){
