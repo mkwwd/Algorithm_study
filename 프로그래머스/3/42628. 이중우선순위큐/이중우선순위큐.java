@@ -8,34 +8,31 @@ class Solution {
         
         for(int i=0; i<operations.length; i++){
             st = new StringTokenizer(operations[i]);
-            String order = st.nextToken();
+            String input = st.nextToken();
             int num = Integer.parseInt(st.nextToken());
-            if(order.equals("I")){
-                tree.put(num, tree.getOrDefault(num, 0) + 1);
+            
+            if(input.equals("I")){
+                tree.put(num, tree.getOrDefault(num, 0)+1);
             }else{
                 if(tree.isEmpty()) continue;
-                if(num == -1){
-                    int min = tree.firstKey();
-                    int cnt = tree.get(min);
-                    if(cnt == 1){
-                        tree.remove(min);
+                if(num == 1){
+                    if(tree.get(tree.lastKey()) == 1){
+                        tree.remove(tree.lastKey());
                     }else{
-                        tree.put(min, cnt-1);
+                        tree.put(tree.lastKey(), tree.get(tree.lastKey())-1);
                     }
                 }else{
-                    int max = tree.lastKey();
-                    int cnt = tree.get(max);
-                    if(cnt == 1){
-                        tree.remove(max);
+                    if(tree.get(tree.firstKey()) == 1){
+                        tree.remove(tree.firstKey());
                     }else{
-                        tree.put(max, cnt-1);
+                        tree.put(tree.firstKey(), tree.get(tree.firstKey())-1);
                     }
                 }
             }
         }
         
+        int answer[] = tree.isEmpty()? new int [] {0,0}: new int[] {tree.lastKey(), tree.firstKey()};
         
-        int[] answer = tree.isEmpty()? new int[]{0, 0} : new int[]{tree.lastKey(), tree.firstKey()};
         return answer;
     }
 }
