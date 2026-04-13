@@ -1,34 +1,37 @@
 function solution(distance, rocks, n) {
     
-    rocks.push(distance)
-    rocks.sort((a,b) => a-b)
+    rocks.push(distance);
+    rocks.sort((a, b) => a-b);
     
-    var answer = 0
-    var min = 1
-    var max = distance
+    var left = 1;
+    var right = distance;
+    var answer = 0;
     
-    while(min <= max){
-        var start = 0
-        var cnt = 0
-        var dis = 0
-        var mid = Math.floor((min+max)/2)
+    while(left <= right){
+        
+        var st = 0;
+        var dis = 0;
+        var mid = Math.floor((left+right)/2);
+        var cnt = 0;
+        
         for(let i=0; i<rocks.length; i++){
-            dis += rocks[i] - start
+            dis += rocks[i]-st;
             if(dis < mid){
-                cnt++
+                cnt++;
             }else{
-                dis = 0
+                dis = 0;
             }
-            start = rocks[i]
+            st = rocks[i];
         }
         
-        if(cnt > n){
-            max = mid-1
+        if(cnt <= n){
+            answer = mid;
+            left = mid+1;
         }else{
-            answer = mid
-            min = mid+1
+            right = mid-1;
         }
+        
     }
     
-    return answer
+    return answer;
 }
