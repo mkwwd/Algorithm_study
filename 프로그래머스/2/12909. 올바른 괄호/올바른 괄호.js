@@ -1,21 +1,17 @@
 function solution(s){
     
-    const arr = [];
-    
-    for(let i=0; i<s.length; i++){
-        if(arr.length >= 1){
-            if(arr[arr.length -1] === '(' && s[i] === ')'){
-                arr.pop();
-                continue;
-            }
-        }
-        
-        arr.push(s[i]);
-    }
-    
+    var que = [];
     var answer = true;
     
-    if(arr.length != 0) answer = false;
+    for(let i=0; i<s.length; i++){
+        if(s.charAt(i) == ')' && que.length && que[que.length-1] == '('){
+            que.pop();
+            continue;
+        }
+        que.push(s.charAt(i));
+    }
+    
+    if(que.length) answer = false;
 
     return answer;
 }
