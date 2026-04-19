@@ -5,25 +5,21 @@ class Solution {
         
         int answer = 0;
         int len = name.length();
-        int min = len - 1;
+        int move = len-1;
         
         for(int i=0; i<len; i++){
             char now = name.charAt(i);
-            int gap = Math.min(now-'A', 'Z'-now+1);
-            answer += gap;
+            answer += Math.min(now - 'A', 'Z' - now + 1);
             
             int next = i + 1;
-            while(next < len && name.charAt(next) == 'A'){
-                next ++;
-            }
             
-            // 앞으로 가서 뒤로 A가 끝나는 지점
-            min = Math.min(min, i*2 + len-next);
-            // 처음에 뒤에 처리하고 다시 앞으로 와서 처리
-            min = Math.min(min, (len-next)*2 + i);
-        }        
+            while(next < len && name.charAt(next) == 'A') next++;
+            
+            move = Math.min(move, i*2 + len-next);
+            move = Math.min(move, (len-next)*2 + i);
+        }
         
-        answer += min;
-        return answer;
+        
+        return answer + move;
     }
 }
