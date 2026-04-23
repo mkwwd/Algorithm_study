@@ -7,41 +7,44 @@ class Solution {
         StringTokenizer st;
         StringBuilder sb = new StringBuilder();
         
-        TreeSet<Integer> arr = new TreeSet<>();
-        Deque<Integer> trash = new ArrayDeque<>();
+        Deque<Integer> que = new ArrayDeque<>();
+        TreeSet<Integer> set = new TreeSet<>();
         
         for(int i=0; i<n; i++){
-            arr.add(i);
+            set.add(i);
         }
-        
-        int index = k;
         
         for(int i=0; i<cmd.length; i++){
             st = new StringTokenizer(cmd[i]);
-            String str = st.nextToken();
-            if(str.equals("D")){
+            String word = st.nextToken();
+            if(word.equals("U")){
                 int size = Integer.parseInt(st.nextToken());
-                while(size-- > 0) index = arr.higher(index);
-            }else if(str.equals("U")){
+                while(size > 0) {
+                    k = set.lower(k);
+                    size--;
+                }
+            }else if(word.equals("D")){
                 int size = Integer.parseInt(st.nextToken());
-                while(size-- > 0) index = arr.lower(index);
-            }else if(str.equals("C")){
-                trash.add(index);
-                arr.remove(index);
-                if(arr.higher(index) != null){
-                    index = arr.higher(index);
+                while(size > 0){
+                    k = set.higher(k);
+                    size--;
+                }
+            }else if(word.equals("C")){
+                que.add(k);
+                set.remove(k);
+                if(set.higher(k) == null){
+                    k = set.lower(k);
                 }else{
-                    index = arr.lower(index);
+                    k = set.higher(k);
                 }
             }else{
-                arr.add(trash.pollLast());
+                set.add(que.pollLast());
             }
         }
         
         for(int i=0; i<n; i++){
-            if(arr.contains(i)){
+            if(set.contains(i)){
                 sb.append("O");
-                arr.remove(0);
             }else{
                 sb.append("X");
             }
