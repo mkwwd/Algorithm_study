@@ -1,6 +1,6 @@
 # [level 3] 공 이동 시뮬레이션 - 87391 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/87391?language=java) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/87391) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 04월 24일 02:06:54
+2026년 04월 24일 02:07:22
 
 ### 문제 설명
 
