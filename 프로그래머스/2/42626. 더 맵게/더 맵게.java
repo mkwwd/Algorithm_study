@@ -3,26 +3,24 @@ import java.util.*;
 class Solution {
     public int solution(int[] scoville, int K) {
         
-        PriorityQueue<Integer> sco = new PriorityQueue<>();
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
         
         for(int i=0; i<scoville.length; i++){
-            sco.add(scoville[i]);
+            pq.add(scoville[i]);
         }
         
         int cnt = 0;
         
-        while(sco.peek() < K && sco.size() > 1){
-            int one = sco.poll();
-            int two = sco.poll();
-            sco.add(one + two*2);
+        while(pq.peek() < K && pq.size() > 1){
+            int one = pq.poll();
+            int two = pq.poll();
+            pq.add(one + two *2);
             cnt++;
         }
         
-        if(sco.peek() < K){
-            return -1;
-        }else{
+        if(pq.peek() >= K){
             return cnt;
-        }
+        }else return -1;
         
     }
 }
