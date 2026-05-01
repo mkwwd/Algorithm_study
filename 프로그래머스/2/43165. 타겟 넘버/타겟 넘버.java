@@ -5,18 +5,22 @@ class Solution {
     public int solution(int[] numbers, int target) {
         
         dfs(0, 0, numbers, target);
+        
         return answer;
     }
     
-    public void dfs(int index, int sum, int[] num, int result){
+    public void dfs(int index, int sum, int[] numbers, int target){
         
-        if(index == num.length){
-            if(sum == result) answer++;
+        if(index == numbers.length){
+            if(sum == target){
+                answer++; 
+            }
             return;
         }
         
-        dfs(index +1, sum + num[index], num, result);
-        dfs(index +1, sum - num[index], num, result);
+        dfs(index + 1, sum + numbers[index], numbers, target);
+        dfs(index + 1, sum - numbers[index], numbers, target);
         
     }
+
 }
