@@ -11,15 +11,16 @@ function solution(begin, end) {
     return answer;
 }
 
-function find(number){
+function find(num){
     
-    if(number == 1) return 0;
+    if(num == 1) return 0;
     let max = 1;
-    for(let i=2; i*i <= number; i++){
-        if(number%i == 0) {
+    for(let i=2; i <= Math.sqrt(num); i++){
+        if(num%i == 0) {
             max = i
-            if(number/i <= 1e7) return number/i;
+            let ans = num/max;
+            if(ans <= 10000000) return ans;
         }
     }
-    return max
+    return max;
 }
