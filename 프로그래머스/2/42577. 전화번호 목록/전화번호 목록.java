@@ -9,13 +9,11 @@ class Solution {
         
         for(int i=1; i<phone_book.length; i++){
             String pre = phone_book[i-1];
-            String number = phone_book[i];
-            if(pre.length() <= number.length() && number.substring(0, pre.length()).equals(pre)){
+            String now = phone_book[i];
+            if(now.length() >= pre.length() && now.substring(0, pre.length()).equals(pre)){
                 answer = false;
-                break;
             }
         }
-        
         
         return answer;
     }
