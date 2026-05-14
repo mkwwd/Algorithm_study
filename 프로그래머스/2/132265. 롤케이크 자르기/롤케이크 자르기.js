@@ -1,35 +1,32 @@
 function solution(topping) {
     
-    var cnt = 0;
-    
-    var mapA = new Map()
-    var mapB = new Map()
+    const chulsoo = new Map();
+    const brother = new Map();
     
     for(let i=0; i<topping.length; i++){
-        if(mapB.get(topping[i]) > 0){
-            mapB.set(topping[i], mapB.get(topping[i])+1)
+        if(brother.has(topping[i])){
+            brother.set(topping[i], brother.get(topping[i])+1);
         }else{
-            mapB.set(topping[i], 1)
+            brother.set(topping[i], 1);
         }
     }
     
+    var answer = 0;
+    
     for(let i=0; i<topping.length; i++){
-        if(mapA.get(topping[i]) > 0){
-            mapA.set(topping[i], mapA.get(topping[i])+1)
+        if(chulsoo.has(topping[i])){
+            chulsoo.set(topping[i], chulsoo.get(topping[i])+1);
         }else{
-            mapA.set(topping[i], 1)
+            chulsoo.set(topping[i], 1);
         }
-        
-        let out = mapB.get(topping[i])
-        if(out == 1){
-            mapB.delete(topping[i])
+        if(brother.get(topping[i]) == 1){
+            brother.delete(topping[i]);
         }else{
-            mapB.set(topping[i], out-1)
+            brother.set(topping[i], brother.get(topping[i])-1);
         }
-        
-        if(mapA.size == mapB.size) cnt++
+        if(chulsoo.size == brother.size) answer++;
     }
     
     
-    return cnt
+    return answer;
 }
