@@ -3,18 +3,15 @@ import java.util.*;
 class Solution {
     public String solution(String s) {
         
-        StringTokenizer st = new StringTokenizer(s);
+        String word[] = s.split(" ");
         
-        String[] arr = s.split(" ");
+        Arrays.sort(word, new Comparator<String>(){
+            @Override
+            public int compare(String s1, String s2){
+                return Integer.parseInt(s1) - Integer.parseInt(s2);
+            }        
+        });
         
-        TreeSet<Integer> que = new TreeSet<>();
-        
-        for(int i=0; i<arr.length; i++){
-            que.add(Integer.parseInt(arr[i]));
-        }
-        
-        String answer = que.first() + " " + que.last();
-        
-        return answer;
+        return word[0] + " " + word[word.length-1];
     }
 }
