@@ -2,5 +2,7 @@ function solution(s) {
     
     const word = s.split(' ');
     
-    return `${Math.min(...word)} ${Math.max(...word)}`;
+    word.sort((a, b) => a - b);
+    
+    return `${word[0]} ${word[word.length-1]}`;
 }
