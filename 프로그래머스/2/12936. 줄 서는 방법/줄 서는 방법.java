@@ -4,31 +4,32 @@ class Solution {
     
     public int[] solution(int n, long k) {
         
-        long fac = 1;
-        ArrayList<Integer> number = new ArrayList<>();
+        ArrayList<Integer> people = new ArrayList<>();
+        long permu = 1;
         
-        for(int i=1; i<n+1; i++){
-            fac *= i;
-            number.add(i);
+        for(int i=1; i<=n; i++){
+            permu *= i;
+            people.add(i);
         }
         
         int index = 0;
         int answer[] = new int[n];
         
-        while(n > 1){
+        while(people.size() > 0){
             
-            fac /= n;
-            int find = (int)((k-1) / fac);
-            answer[index++] = number.remove(find);
-            n--;
-            k -= fac*(find);          
+            if(people.size() == 1){
+                answer[index] = people.get(0);
+            }
+            
+            permu /= people.size();
+            int num = (int)((k-1)/permu);
+            answer[index] = people.remove(num);
+            index++;
+            k -= num*permu;
         }
         
-        answer[index] = number.get(0);
-        
-        
         return answer;
+        
     }
-    
 
 }

@@ -1,10 +1,10 @@
 # [level 2] 줄 서는 방법 - 12936 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12936?language=javascript) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12936?language=java) 
 
 ### 성능 요약
 
-메모리: 32.9 MB, 시간: 0.24 ms
+메모리: 56.1 MB, 시간: 0.06 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 07월 03일 01:41:36
+2026년 05월 22일 03:54:37
 
 ### 문제 설명
 
