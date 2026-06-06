@@ -1,33 +1,32 @@
 function solution(N, road, K) {
     
-    const village = Array.from({length: N+1}, () => []);
-   
+    const roadInfo = Array.from({length: N+1}, () => []);
+    
     road.forEach((info) => {
-        let [a, b, c] = info;
-        village[a].push([b, c]);
-        village[b].push([a, c]);
+        roadInfo[info[0]].push([info[1], info[2]]);
+        roadInfo[info[1]].push([info[0], info[2]]);
     })
     
-    const time = Array(N+1).fill(Number.MAX_SAFE_INTEGER)
-    const que = [];
-    time[1] = 1
-    
-    que.push([1, 0])
+    const minTime = Array(N+1).fill(Number.MAX_SAFE_INTEGER);
+    minTime[1] = 0;
+    const que = [[1,0]];
     
     while(que.length){
-        const now = que.pop();
-        for(let next of village[now[0]]){
-            if(time[next[0]] >= next[1] + now[1]){
-                time[next[0]] = next[1] + now[1]
-                que.push([next[0], next[1] + now[1]])
+        var now = que.pop();
+        if(minTime[now[0]] < now[1]) continue;
+        for(let next of roadInfo[now[0]]){
+            var sum = now[1] + next[1];
+            if(minTime[next[0]] >= sum){
+                minTime[next[0]] = sum;
+                que.push([next[0], sum]);
             }
         }
     }
     
     var answer = 0;
     
-    for(let t of time){
-        if(t <= K) answer++
+    for(let i=1; i<=N; i++){
+        if(minTime[i] <= K) answer++;
     }
 
     return answer;
