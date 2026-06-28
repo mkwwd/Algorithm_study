@@ -9,14 +9,14 @@ class Solution {
             pq.add(score[i]);
         }
         
-        int max = k;
+        int min = k;
         int answer = 0;
         
         while(pq.size() >= m){
             for(int i=0; i<m; i++){
-                max = Math.min(max, pq.poll());
+                min = Math.min(min, pq.poll());
             }
-            answer += max*m;
+            answer += min*m;
         }
         
         return answer;
