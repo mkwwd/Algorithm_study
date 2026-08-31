@@ -15,8 +15,7 @@ class Solution {
             idx++;
             if(s.charAt(i) == ' ') idx = 0;
         }
-            
-            
+
         return answer;
     }
 }
