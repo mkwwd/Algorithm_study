@@ -12,13 +12,11 @@ class Solution
             }else{
                 que.add(s.charAt(i));
             }
-        }        
+        }
         
         if(que.isEmpty()){
             return 1;
-        }else{
-            return 0;
-        }
+        }else return 0;
 
     }
 }
