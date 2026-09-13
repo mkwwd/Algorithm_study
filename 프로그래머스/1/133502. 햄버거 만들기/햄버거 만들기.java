@@ -3,36 +3,19 @@ import java.util.*;
 class Solution {
     public int solution(int[] ingredient) {
         
-        
-        Deque<Integer> que = new ArrayDeque<>();
+        List<Integer> stack = new ArrayList<>();
         int answer = 0;
         
         for(int i=0; i<ingredient.length; i++){
-            if(ingredient[i] == 1){
-                if(!que.isEmpty() && que.peekLast() == 3){
-                    que.pollLast();
-                }else{
-                    que.add(1);
-                    continue;
-                }
-                if(!que.isEmpty() && que.peekLast() == 2){
-                    que.pollLast();
-                }else{
-                    que.add(3);
-                    que.add(1);
-                    continue;
-                }
-                if(!que.isEmpty() && que.peekLast() == 1){
-                    que.pollLast();
+            stack.add(ingredient[i]);
+            int len = stack.size();
+            if(len >= 4){
+                if(stack.get(len-1) == 1 && stack.get(len-2) == 3 && stack.get(len-3) == 2 && stack.get(len-4) == 1){
                     answer++;
-                }else{
-                    que.add(2);
-                    que.add(3);
-                    que.add(1);
-                    continue;
+                    for(int j=0; j<4; j++){
+                        stack.remove(stack.size()-1);
+                    }
                 }
-            }else{
-                que.add(ingredient[i]);
             }
         }
 
