@@ -1,10 +1,10 @@
 # [level 1] 같은 숫자는 싫어 - 12906 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12906?language=java) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12906?language=javascript) 
 
 ### 성능 요약
 
-메모리: 117 MB, 시간: 30.22 ms
+메모리: 97 MB, 시간: 35.06 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 09월 18일 15:21:44
+2026년 09월 18일 15:24:12
 
 ### 문제 설명
 
