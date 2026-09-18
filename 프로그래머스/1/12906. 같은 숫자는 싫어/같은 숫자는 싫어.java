@@ -12,9 +12,10 @@ public class Solution {
             que.add(arr[i]);
         }
         
-        int[] answer = new int[que.size()];
+        int size = que.size();
+        int answer[] = new int[size];
         
-        for(int i=0; i<answer.length; i++){
+        for(int i=0; i<size; i++){
             answer[i] = que.poll();
         }
 
