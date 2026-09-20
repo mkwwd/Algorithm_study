@@ -24,11 +24,9 @@ class Solution {
             if(reserveSet.contains(item-1)){
                 possible++;
                 reserveSet.remove(item-1);
-                continue;
             }else if(reserveSet.contains(item+1)){
                 possible++;
                 reserveSet.remove(item+1);
-                continue;
             }
         }
     
