@@ -3,34 +3,35 @@ import java.util.*;
 class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
         
-        int student[] = new int[n+1];
-        Arrays.fill(student, 1);
-        int answer = 0;
-        
-        for(int i=0; i<reserve.length; i++){
-            student[reserve[i]] = 2;
-        }
+        HashSet<Integer> lostSet = new HashSet<>();
+        HashSet<Integer> reserveSet = new HashSet<>();
         
         for(int i=0; i<lost.length; i++){
-            student[lost[i]]--;
+            lostSet.add(lost[i]);
         }
         
-        for(int i=1; i<=n; i++){
-            if(student[i] >= 1) continue;
-            if(student[i-1] > 1){
-                student[i-1]--;
-                student[i] ++;
+        for(int i=0; i<reserve.length; i++){
+            if(lostSet.contains(reserve[i])){
+                lostSet.remove(reserve[i]);
                 continue;
             }
-            if(i+1 < student.length && student[i+1] > 1){
-                student[i+1]--;
-                student[i] ++;
+            reserveSet.add(reserve[i]);
+        }
+        
+        int possible = n-lostSet.size();
+        
+        for(int item : lostSet){
+            if(reserveSet.contains(item-1)){
+                possible++;
+                reserveSet.remove(item-1);
+                continue;
+            }else if(reserveSet.contains(item+1)){
+                possible++;
+                reserveSet.remove(item+1);
                 continue;
             }
-            
-            answer++;
         }
     
-        return n-answer;
+        return possible;
     }
 }
