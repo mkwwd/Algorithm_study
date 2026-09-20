@@ -3,22 +3,21 @@ import java.util.*;
 class Solution {
     public int solution(int[] nums) {
         
-        int N = nums.length;
+        int get = nums.length/2;
         
-        TreeMap<Integer, Integer> pokemon = new TreeMap<>();
-
-        for(int i=0; i<N; i++){
-            pokemon.put(nums[i], pokemon.getOrDefault(nums[i], 0) + 1);
+        HashMap<Integer, Integer> pokemon = new HashMap<>();
+        
+        for(int i=0; i<nums.length; i++){
+            int cnt = pokemon.getOrDefault(nums[i], 0);
+            if(cnt == 0){
+                pokemon.put(nums[i], 1);
+            }else{
+                pokemon.put(nums[i], pokemon.get(nums[i])+1);
+            }
         }
         
         int size = pokemon.size();
-        int answer = 0;
-            
-        if(size <= N/2){
-            answer = size;
-        }else{
-            answer = N/2;
-        }
+        int answer = Math.min(size, get);
         
         return answer;
     }
