@@ -6,7 +6,7 @@ class Solution {
         int[] stu2 = {2,1,2,3,2,4,2,5};
         int[] stu3 = {3,3,1,1,2,2,4,4,5,5};
         
-        int[] right = new int [4];
+        int[] right = new int[4];
        
         for(int i=0; i<answers.length; i++){
             if(answers[i] == stu1[i%stu1.length]) right[1]++;
